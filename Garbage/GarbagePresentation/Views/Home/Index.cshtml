@@ -1,0 +1,127 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/FrontLayout.cshtml";
+}
+
+<div class="container" style="width:100%;">
+
+			<!-- header -->
+			<header>
+
+				<div class="flexslider-info">
+					<section class="slider" >
+						<div class="flexslider">
+							<ul class="slides">
+								<li>
+									<div class="w3l-info BackgroundImageSize" style="background:url('../../Content/FrontContent/images/b1.jpg') no-repeat;">
+										<h4 class="Infoslider">Info</h4>
+									</div>
+								</li>
+								<li>
+									<div class="w3l-info BackgroundImageSize" style="background:url('../../Content/FrontContent/images/b2.jpg') no-repeat;">
+										<h4  class="Infoslider">Info</h4>
+									</div>
+								</li>
+								<li>
+									<div class="w3l-info BackgroundImageSize" style="background:url('../../Content/FrontContent/images/b3.jpg') no-repeat;">
+										<h4  class="Infoslider">Info</h4>
+									</div>
+								</li>
+                                <li>
+									<div class="w3l-info BackgroundImageSize" style="background:url('../../Content/FrontContent/images/b4.jpg') no-repeat;">
+										<h4  class="Infoslider">Info</h4>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</section>
+				</div>
+			</header>
+		</div>
+		<div class="clearfix"> </div>
+	</div>
+
+	<!-- //header -->
+	<!-- banner-text -->
+	<!-- modal -->
+	<div class="modal about-modal fade" id="myModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Apply Now</h4>
+				</div>
+				<div class="modal-body">
+                    <input type="hidden" id="SubjectId" />
+                    <input type="hidden" id="UserId" />
+					<div class="out-info">
+						<p style="text-align:center;">Are you Sure to Apply for This Course,...?</p>
+					</div>
+				</div>
+                <div class="modal-footer">
+                    <button id="Save" class="btn btn-primary" type="button" data-dismiss="modal" aria-label="Close">Yes</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+            </div>
+			</div>
+		</div>
+	</div>
+	<!-- //modal -->
+	<!-- //banner-text end -->
+	<!--about-->
+	<div class="about " id="about">
+		<div class="container">
+			<h3 class="title clr-white"></h3>
+			<div class="upper-about">
+				<h2><img src="~/Images/NameLogo.png" style="width:20%;background:linear-gradient(to right, #7fc645 0%,#048ed2 100%) !important;border-radius:100%;" /></h2>
+                <h2>INTRODUCTION</h2>
+			</div>
+			<div class="agileits-banner-grids text-center">
+				<div class="banner-bottom-girds">
+					<div class="col-md-12  col-sm-12 clr1 agileits-banner-grid">
+						<p style="text-align:justify;">Our systems is designed to meet the unique needs of 
+                            waste management companies. From simple route planning to real-time and historical location information, these 
+                            systems provide waste management fleet managers with all of the information they need to provide timely service 
+                            to their customers while also reducing wasted time and improving fuel efficiency for their garbage trucks. 
+                            This systems also provide information about driver behavior, allowing the safety-conscious 
+                            company to insist on safe driving practices at all times.</p>
+                        <p style="text-align:justify;">Waste management companies need to be reliable, dependable and provide excellent service. 
+                            Resulting in happy citizens, a clean city, and a green planet. Tracking and monitoring vehicles give waste 
+                            management companies a leg up. Simplifying the ability to manage utilization and timely service of high-value garbage 
+                            trucks can be the difference between profit and loss.</p>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<div class="about " id="about" style="background:#eaebf1;">
+		<div class="container">
+			<div class="agileits-banner-grids text-center">
+				<div class="banner-bottom-girds"> 
+					<div class="col-md-6  col-sm-6 upper-about" >
+						<h2 style="border:none;font-size:30px;text-align:justify;">Benefits for using our services</h2>
+						<p style="text-align:justify;padding: 20px 0px 0px;"><i class="fa fa-dot-circle-o" style="color:#bb001a;"> </i> 
+                            Easily dispatch a new garbage truck when one is broken down.</p>
+                        <p style="text-align:justify;padding: 20px 0px 0px;"><i class="fa fa-dot-circle-o" style="color:#bb001a;"> </i> 
+                           Improve routing to eliminate wasted time and fuel.</p>
+                        <p style="text-align:justify;padding: 20px 0px 0px;"><i class="fa fa-dot-circle-o" style="color:#bb001a;"> </i> 
+                           Ensure that drivers are held accountable for their whereabouts while on the job.</p>
+                        <p style="text-align:justify;padding: 20px 0px 0px;"><i class="fa fa-dot-circle-o" style="color:#bb001a;"> </i> 
+                           Handle customer disputes with historical or real-time information about vehicle locations.</p>
+                        <p style="text-align:justify;padding: 20px 0px 0px;"><i class="fa fa-dot-circle-o" style="color:#bb001a;"> </i> 
+                           Keep customers satisfied with prompt service and safe driving habits.</p>
+                        <p style="text-align:justify;padding: 20px 0px 0px;"><i class="fa fa-dot-circle-o" style="color:#bb001a;"> </i> 
+                           Send specialty vehicles to the right locations for large-item pickups.</p>
+					</div>
+					<div class="col-md-6 col-sm-6">
+						<div class="banner-icon" aria-hidden="true">
+                            <img src="../../Content/FrontContent/images/tower1.png" style="width:100%;" />
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+    <br />
+	</div>

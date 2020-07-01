@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title  style="text-transform:uppercase;">GARBAGE | @ViewBag.Title</title>
+    <link href="~/Images/NameLogo.png" rel="icon" />
+    <!-- Bootstrap Core CSS -->
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+    <!-- MetisMenu CSS -->
+    <link href="~/Content/css/metisMenu.min.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link href="~/Content/css/sb-admin-2.css" rel="stylesheet" />
+
+    <!-- Morris Charts CSS -->
+    <link href="~/Content/css/morris.css" rel="stylesheet" />
+
+    <!-- Custom Fonts -->
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+    
+    <!-- Kendo -->
+    <link href="~/Content/kendo/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/Content/kendo/kendo.flat.min.css" rel="stylesheet" />
+    
+    <!-- Toastr -->
+    <link href="~/Content/csslogin/toastr.css" rel="stylesheet" />
+
+    <!-- jQuery -->
+    <script src="~/Script/jslogin/jquery-2.1.1.min.js"></script>
+    <!-- jQuery -->
+    <script src="~/Script/jslogin/scripts.js"></script>
+    <script src="~/Script/js/jquery-1.12.4.js"></script>
+    <script src="~/Script/js/jquery.dataTables.min.js"></script>
+    <script src="~/Script/js/dataTables.bootstrap.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Script/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="~/Script/js/metisMenu.min.js"></script>
+    
+    <!-- Morris Charts JavaScript -->
+    <script src="~/Script/js/raphael.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="~/Script/js/sb-admin-2.js"></script>
+    
+    <!-- Kendo JavaScript -->
+    <script src="~/Script/Kendo/kendo.all.min.js"></script>
+    
+    <!-- Toastr JavaScript -->
+    <script src="~/Script/jslogin/toastr.js"></script>
+</head>
+<body>
+<div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0;background:linear-gradient(to right, #7fc645 0%,#048ed2 100%) !important;">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" id="toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" id="toggle1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="~/Admin/UserProfile"><i class="fa fa-user fa-fw"></i>  Profile</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="~/Login/SignOut"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div id="sidebar" class="navbar-default sidebar" role="navigation"style="background:linear-gradient(to right, #048ed2 0%,#7fc645 100%) !important;height:620px;">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="~/Admin/Index" style="text-align:center;"><img src="~/Images/NameLogo.png" style="width: 40%;"/></a>
+                        </li>
+                        @if (Session["UserId"]!=null){
+                        <li>
+                            <p class="activeper"><i class="fa fa-user fa-fw"></i>@Session["UserName"].ToString()</p>
+                        </li>
+                        }
+                        else{
+                        
+                                                        <script>
+                                                            $(document).ready(function () {
+                                                                reload();
+                                                                function reload() {
+                                                                    window.location.href = '/Login/Index';
+                                                                }
+                                                            });
+                                                        </script>
+                        }
+                        <li>
+                            <a href="~/Admin/Index"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                        <!--Admin Side-->
+                        @{
+                        if(Session["Role"].ToString()=="1")
+                        {
+                        <li>
+                            <a href="~/Admin/ListofRateForManger"><i class="fa fa-list fa-fw"></i> Rate List</a>
+                        </li>
+                        <li>
+                            <a href="~/Admin/ListofEmployeeForManager"><i class="fa fa-user fa-fw"></i> List of Employee</a>
+                        </li>
+                        <li>
+                            <a href="~/Admin/ListofClientForManager"><i class="fa fa-users fa-fw"></i> List of Client</a>
+                        </li>
+                        <li>
+                            <a href="~/Admin/ListofCompanyForManager"><i class="fa fa-building fa-fw"></i> List of Company</a>
+                        </li>
+                        <li>
+                            <a href="~/Admin/ListOfPendingRequestForAdmin"><i class="fa fa-list-alt fa-fw"></i> Pending Request</a>
+                        </li>
+                        <li>
+                            <a href="~/Admin/ListOfAllRequestForAdmin"><i class="fa fa-file fa-fw"></i> All Request</a>
+                        </li>
+                        <li>
+                            <a href="~/Admin/ListofAuctionForManger"><i class="fa fa-gavel fa-fw"></i> List of Auction</a>
+                        </li>
+                        <li>
+                            <a href="~/Admin/ListofFeedbackForManager"><i class="fa fa-comment fa-fw"></i> Client Feedback</a>
+                        </li>
+                        <li>
+                            <a href="~/Admin/ListofUserMessageForManager"><i class="fa fa-envelope fa-fw"></i> User Messages</a>
+                        </li>
+                        }
+                        else if(Session["Role"].ToString()=="4"){
+                        <!--MArt Admin-->
+                        <li>
+                            <a href="~/Admin/ListofActiveAuctionForCompany"><i class="fa fa-gavel fa-fw"></i> Active Auction</a>
+                        </li>
+                        <li>
+                            <a href="~/Admin/ListofAuctionForOwnByCompany"><i class="fa fa-list-alt fa-fw"></i> Own Auction List</a>
+                        </li>
+                        <li>
+                            <a href="~/Admin/ListofBiddingOnAuctionForCompany"><i class="fa fa-file-text fa-fw"></i> Company Bidding List</a>
+                        </li>
+                        }
+                        }
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+    <div id="page-wrapper">
+        @RenderBody()
+    </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+
+    <!-- /#wrapper -->
+
+
+
+</body>
+</html>
+

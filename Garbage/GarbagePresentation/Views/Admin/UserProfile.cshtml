@@ -1,0 +1,208 @@
+﻿@{
+    ViewBag.Title = "UserProfile";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="btn-group btn-breadcrumb">
+                        <a class="btn btn-primary" href="~/Admin/Index" onclick="Loader()"><i class="fa fa-tachometer"></i> Dashboard</a>
+                        <a class="btn btn-primary-child" href="#" style="pointer-events: none"><i class="fa fa-user"></i> Profile</a>
+                        <a class="btn btn-primary" href="#" style="display: none"></a>
+                    </div>
+                </div>
+            </div>
+        </h1>
+    </div>
+</div>
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-lg-4">
+            <label>Name : @Model.Name</label><input id="UserId" type="hidden" value="@Model.UserId" />
+        </div>
+        <div class="col-lg-4">
+            <label>Email : @Model.Email</label>
+        </div>
+    <div class="col-lg-4">
+            <label>Contact No : @Model.ContactNo</label>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;border-top: 1px solid #aaa;">
+        <div class="col-lg-4"  style="padding-top: 10px;">
+            <label>Role : @Model.RoleName</label>
+        </div>
+        <div class="col-lg-4"  style="padding-top: 10px;">
+            <label>Status : @Model.Status</label>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px; border-top: 1px solid #aaa;border-bottom: 1px solid #aaa;">
+        <div class="col-lg-4" style="padding-top: 10px;padding-bottom: 10px;">
+            <button class="btnsave" type="button" data-toggle="modal" data-target="#AddModal"><i class="fa fa-user"> </i> Edit Profile</button>
+        </div>
+        <div class="col-lg-4" style="padding-top: 10px;padding-bottom: 10px;">
+            <button class="btnsave" type="button" data-toggle="modal" data-target="#AddModal1"><i class="fa fa-key"> </i> Change Password</button>
+        </div>
+        <div class="col-lg-4" style="padding-top: 10px;">
+        </div>
+    </div>
+
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="AddModal" role="dialog">
+    <div class="modal-dialog modal-md" style="min-width:270px;margin-top: 80px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Update Profile</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-4"><label>Name</label></div>
+                    <div class="col-lg-8"><input type="text" id="Name" value="@Model.Name" class="form-control" /></div>
+                </div>
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-lg-4"><label>Contact No</label></div>
+                    <div class="col-lg-8"><input type="number" id="ContactNo" value="@Model.ContactNo" class="form-control" /></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="Update" class="btnsave" type="button">Update</button>
+                <button type="button" class="btnClose" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="AddModal1" role="dialog">
+    <div class="modal-dialog modal-md" style="min-width:270px;margin-top: 80px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Change Password</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-4"><label>Old Password</label></div>
+                    <div class="col-lg-8"><input type="password" id="OldPassword" class="form-control" /></div>
+                </div>
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-lg-4"><label>New Password</label></div>
+                    <div class="col-lg-8"><input type="password" id="NewPassword" class="form-control" /></div>
+                </div>
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-lg-4"><label>Confirm Password</label></div>
+                    <div class="col-lg-8"><input type="password" id="ConfirmPassword" class="form-control" /></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="ChangePassword" class="btnsave" type="button">Change</button>
+                <button type="button" class="btnClose" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#Update").click(function () {
+        if (!validateRegistrationForm()) {
+            $("#divLoading").show();
+            var dataobj = JSON.stringify({
+                UserId: $.trim($("#UserId").val()),
+                Name: $.trim($("#Name").val()),
+                ContactNo: $("#ContactNo").val(),
+            });
+            $.ajax({
+                url: "/Garbage/AllTypeofUserUpdateProfile",
+                type: "POST",
+                data: dataobj,
+                dataType: "JSON",
+                traditional: true,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $('#AddModal').modal('hide');
+                    $("#divLoading").hide();
+                    toastr.success("Profile Updated Successfully");
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                },
+                error: function () {
+                }
+            });
+        }
+        else { return false; }
+    });
+    function validateRegistrationForm() {
+        var isErrorOccurd = false;
+        $("#Name").removeClass("errorClass");
+        if ($.trim($("#Name").val()) == "") {
+            $("#Name").addClass('errorClass');
+            isErrorOccurd = true;
+        }
+        $("#ContactNo").removeClass("errorClass");
+        if ($.trim($("#ContactNo").val()) == "") {
+            $("#ContactNo").addClass('errorClass');
+            isErrorOccurd = true;
+        }
+        return isErrorOccurd;
+    }
+    $("#ChangePassword").click(function () {
+        if (!validateRegistrationForm2()) {
+            $("#divLoading").show();
+            var dataobj = JSON.stringify({
+                UserId: $.trim($("#UserId").val()),
+                OldPassword: $.trim($("#OldPassword").val()),
+                NewPassword: $("#NewPassword").val(),
+            });
+            $.ajax({
+                url: "/Garbage/ChangePasswordByAllTypeOfUser",
+                type: "POST",
+                data: dataobj,
+                dataType: "JSON",
+                traditional: true,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data > 0) {
+                        $('#AddModal').modal('hide');
+                        $("#divLoading").hide();
+                        toastr.success("Password Changed Successfully");
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1000);
+                    }
+                    else {
+                        $("#divLoading").hide();
+                        toastr.error("Old Password is not Matching");
+                        $("#OldPassword").addClass('errorClass');
+                    }
+                },
+                error: function () {
+                }
+            });
+        }
+        else { return false; }
+    });
+    function validateRegistrationForm2() {
+        var isErrorOccurd = false;
+        $("#OldPassword").removeClass("errorClass");
+        if ($.trim($("#OldPassword").val()) == "") {
+            $("#OldPassword").addClass('errorClass');
+            isErrorOccurd = true;
+        }
+        $("#NewPassword").removeClass("errorClass");
+        if ($.trim($("#NewPassword").val()) == "") {
+            $("#NewPassword").addClass('errorClass');
+            isErrorOccurd = true;
+        }
+        $("#ConfirmPassword").removeClass("errorClass");
+        if ($.trim($("#ConfirmPassword").val()) == "") {
+            $("#ConfirmPassword").addClass('errorClass');
+            isErrorOccurd = true;
+        }
+        if ($.trim($("#ConfirmPassword").val()) != $.trim($("#NewPassword").val())) {
+            $("#ConfirmPassword").addClass('errorClass');
+            $("#NewPassword").addClass('errorClass');
+            toastr.error("New Password & Confirm Password not Matching");
+            isErrorOccurd = true;
+        }
+        return isErrorOccurd;
+    }
+</script>

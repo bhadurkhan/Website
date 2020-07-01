@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "User Messages";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            <div class="row">
+        <div class="col-lg-12">
+            <div class="btn-group btn-breadcrumb">
+                <a href="~/Admin/Index" class="btn btn-primary" onclick="Loader()"><i class="fa fa-tachometer"></i> Dashboard</a>
+                <a href="#" class="btn btn-primary-child" style="pointer-events:none"><i class="fa fa-envelope"></i> User Messages</a>
+                <a href="#" class="btn btn-primary" style="display:none"></a>
+            </div>
+        </div>
+    </div>
+        </h1>
+    </div>
+</div>
+<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+  <thead>
+    <tr style="background:linear-gradient(to right, #7fc645 0%,#048ed2 100%) !important;color:#fff;text-align:center">
+      <th>S.No</th>
+      <th>Message By</th>
+      <th>Email</th>
+      <th>Contact No</th>
+      <th>Message</th>
+      <th>Created On</th>
+    </tr>
+  </thead>
+  <tbody>
+      @{
+          int i = 1;
+      foreach (var item in Model) {
+    <tr> 
+      <td>@i</td>
+      <td>@item.Name</td>
+      <td>@item.Email</td>
+        <td>@item.ContactNo</td>
+      <td>@item.Message</td>
+      <td>@item.CreatedDate</td>
+    </tr>
+          i = i + 1;
+      }
+      }
+  </tbody>
+</table>
+
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>

@@ -1,0 +1,291 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title style="text-transform:uppercase;">GARBAGE | LOGIN</title>
+    <link href="~/Images/NameLogo.png" rel="icon" />
+    <!--==================CSS Files====================-->
+     <!-- Bootstrap Core CSS -->
+<link href="~/Content/csslogin/bootstrap.min.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="~/Content/csslogin/style.css" rel='stylesheet' type='text/css' />
+<!-- Graph CSS -->
+<link href="~/Content/csslogin/font-awesome.css" rel="stylesheet"> 
+<!-- lined-icons -->
+<link rel="stylesheet" href="~/Content/csslogin/icon-font.min.css" type='text/css' />
+    <!--==================JS Files=====================-->
+    <script src="~/Script/jslogin/jquery-1.10.2.min.js"></script>
+    <script src="~/Script/jslogin/jquery.nicescroll.js"></script>
+    <script src="~/Script/jslogin/scripts.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+   <script src="~/Script/jslogin/bootstrap.min.js"></script>
+    <link href="~/Content/csslogin/toastr.css" rel="stylesheet" />
+    <script src="~/Script/jslogin/toastr.js"></script>
+</head>
+
+<body style="background-image:linear-gradient(to right, #7fc645 0%,#048ed2 100%) !important;">
+    <div id="divLoading" class="divLoading">
+        <p style="position: absolute; color: White; top: 35%; left: 45%;">
+            <img src="~/Images/loading-image.gif"/>
+        </p>
+    </div>
+<!--/login-->
+					
+	<div class="error_page" style="background:none">
+	<!--/login-top-->
+	    <div class="error-top" style="background:linear-gradient(to right, #048ed2 0%,#7fc645 100%) !important;padding:2em 2em 6em 2em;border:2px solid #eee">
+		    @*<h2 class="inner-tittle page">Augment</h2>*@
+			<div class="login" style="padding-bottom:20px;">
+			    <h3 class="inner-tittle t-inner" style="color:#eee;margin-bottom:0.5em"><img src="~/Images/NameLogo.png" style="width: 30%;"/>
+                    @*<img src="~/Images/Event-LoginLogo.png"style="width:130px;"  />*@
+                </h3>
+                @if (@TempData["Status"] != null)
+                {
+                    <div id="NotificationBox" style="display: block;" class="alert alert-warning">
+                        <p id="msgbody">@TempData["Status"] </p>
+                    </div>
+                }
+                    @using (Html.BeginForm("SignIn", "Login", FormMethod.Post, new { defaultbutton = "btnLogin", id = "MainForm" }))
+                    {
+                        <form>
+						    <input id="EmailLogin" name="EmailLogin"  type="text" style="margin-bottom:1em"  class="text" placeholder="E-mail address" 
+                                onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'E-mail address';}" >
+							<input id="PasswordLogin" type="password" name="PasswordLogin"  placeholder="Password" 
+                                onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}">
+                      		<div class="new" style="margin:0px">
+							    @*<p style="float:left;margin:3px 0px 0px 0px"><label class="checkbox11">
+                                    <input type="checkbox" id="remember" name="remember" value="1"><i> </i> Remember Me</label></p>*@
+								<div class="clearfix"></div>
+							</div>
+							<div class="submit"><input type="submit" id="btnLogin" value="Login" ></div>
+							<div class="clearfix"></div>
+						</form>
+                    }
+				</div>
+            <style>
+                a:hover {
+                color:#ff6a00;
+                }
+            </style>
+            </div>
+        <!--//login-top-->
+        </div>
+
+    <div class="modal fade" id="UserRegistrationModal" role="dialog">
+    <div class="modal-dialog modal-md" style="min-width:270px;">
+        <div class="modal-content">
+            <div class="modal-header" >
+                <button type="button" class="close" data-dismiss="modal" style="color:#fff">&times;</button>
+                <h4 class="modal-title">Registration Form</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-4"><label>Name</label></div>
+                    <div class="col-lg-8"><input type="text" id="Name" class="form-control" /></div>
+                </div>
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-lg-4"><label>CNIC/Email</label></div>
+                    <div class="col-lg-8"><input type="text" id="CNICOREmail" class="form-control" />
+                        <div id="magboxfor12" style="display:none;">
+                        <span style="color:red;">This Email is Already Exist</span>
+                    </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px;" id="Password1">
+                    <div class="col-lg-4"><label>Password</label></div>
+                    <div class="col-lg-8"><input type="password" id="Password" class="form-control" />
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-lg-4"><label>Contact No</label></div>
+                    <div class="col-lg-8"><input type="number" id="ContactNo" class="form-control" /></div>
+                </div>
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-lg-4"><label>Address</label></div>
+                    <div class="col-lg-8"><input type="text" id="Address" class="form-control" /></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="Save" class="btnsave" type="button">Create</button>
+                    <button id="Update" style="display:none" class="btnsave" type="button">Update</button>
+                <button type="button" class="btnClose" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--//login-->
+
+    <div class="footer">
+	    <div class="error-btn"></div>
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+            var valuechek = $('#chekboxid').val();
+            if ($('#chekboxid').val() == 1) {
+                $("#remember").prop("checked", true);
+            }
+            else {
+                $("#remember").prop("checked", false);
+            }
+
+
+        });
+    </script>
+    <script>
+        $("#Save").click(function () {
+            if (!validateRegistrationForm()) {
+                $("#divLoading").show();
+                var dataobj = JSON.stringify({
+                    Name: $.trim($("#Name").val()),
+                    CNICOREmail: $("#CNICOREmail").val(),
+                    ContactNo: $("#ContactNo").val(),
+                    Address: $("#Address").val(),
+                    Password: $("#Password").val(),
+                });
+                $.ajax({
+                    url: "/GroceryShopping/CustomerRegistration",
+                    type: "POST",
+                    data: dataobj,
+                    dataType: "JSON",
+                    traditional: true,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        if (data > 0) {
+                            $('#UserRegistrationModal').modal('hide');
+                            $("#divLoading").hide();
+                            toastr.success('Registered Successfully, Now you can Login and Add Product to Cart and Create Order');
+                        }
+                        else {
+                            $('#magboxfor12').css("display", "block");
+                            $("#divLoading").hide();
+                            $("#CNICOREmail").addClass('errorClass');
+                            setTimeout(function () {
+                                $("#magboxfor12").hide();
+                            }, 6000);
+                        }
+                    },
+                    error: function () {
+                    }
+                });
+            }
+            else { return false; }
+        });
+        function validateRegistrationForm() {
+            $("#Name").removeClass("errorClass");
+            $("#CNICOREmail").removeClass("errorClass");
+            $("#ContactNo").removeClass("errorClass");
+            $("#Address").removeClass("errorClass");
+            var isErrorOccurd = false;
+            if ($.trim($("#Name").val()) == "") {
+                $("#Name").addClass('errorClass');
+                isErrorOccurd = true;
+            }
+            if ($.trim($("#CNICOREmail").val()) == "") {
+                $("#CNICOREmail").addClass("errorClass");
+                isErrorOccurd = true;
+            }
+            if ($.trim($('#ContactNo').val()) == "") {
+                $("#ContactNo").addClass("errorClass")
+                isErrorOccurd = true;
+            }
+            if ($.trim($('#Address').val()) == "") {
+                $("#Address").addClass("errorClass")
+                isErrorOccurd = true;
+            }
+            return isErrorOccurd;
+
+
+        }
+        var ButtonKeys = { "EnterKey": 13 };
+        $(function () {
+            $("#MainForm").keypress(function (e) {
+                if (e.which == ButtonKeys.EnterKey) {
+                    var defaultButtonId = $(this).attr("defaultbutton");
+                    $("#" + defaultButtonId).click();
+                    return false;
+                }
+            });
+        });
+        //loader script
+        $(".loader").bind("click", (function () {
+            $("#divLoading").show();
+        }));
+        //end
+        ///validation login button
+        $('#btnLogin').click(function () {
+            $('#EmailLogin').css("border", "1px solid #ccc");
+            $('#PasswordLogin').css("border", "1px solid #ccc");
+            var error = 0;
+
+
+            //var remember = $('#remember').prop('checked');
+            //if (remember == true){alert("Remember Me")}
+            //else { alert("Not Remember Me") }
+
+
+            var logmail = $('#EmailLogin').val();
+            var logpassword = $('#PasswordLogin').val();
+            //  var logpassword = 'domain'; //$('#PasswordLogin').val();
+            //$("#divLoading").hide();
+            //$('#msg').css('display', 'block');
+            //$('#msg').addClass('alert alert-warning');
+            //$('#msgbody').text('Password mis-matched');
+
+
+            if (logmail == '' || logmail == null) {
+                $('#EmailLogin').css("border", "2px solid red");
+                $("#divLoading").hide();
+                error = error + 1;
+            }
+            if (logpassword == '' || logpassword == null) {
+                $('#PasswordLogin').css("border", "2px solid red");
+                $("#divLoading").hide();
+                error = error + 1;
+            }
+
+            if (error != 0) {
+                //$("#divLoading").hide();
+                return false;
+
+
+            }
+            else {
+
+
+                $("#divLoading").show();
+                return true;
+
+            }
+        });
+
+        //end
+        //for email chechk
+        function IsEmail(mail) {
+            //alert(mail);
+
+            var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            return regex.test(mail);
+        }
+        //This is For Forgot Password
+
+
+    </script>
+
+    <!--on load page loader show-->
+    <script type="text/javascript">
+        $(".loader").bind("window", (function () {
+            $("#divLoading").show();
+        }));
+    </script>
+
+            
+    <!---end-->
+</body>
+</html>

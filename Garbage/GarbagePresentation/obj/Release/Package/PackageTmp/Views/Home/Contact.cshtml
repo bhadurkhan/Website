@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/FrontLayout.cshtml";
+}
+<div class="contact" id="contact" style="padding-bottom:0px;padding: 8em 0;background:#ced4d4;">
+		<div class="container" style="background: #9dbbc5;margin-top: 3em;padding-top: 2em;">
+			<h3 class="title clr-white">CONTACT</h3>
+            
+			<div class="contact-form">
+				<form action="#" method="post">
+					<div class="col-md-4 col-sm-4 form-right form-left">
+						<input type="text" id="Name" name="name" placeholder="Name" required="">
+					</div>
+					<div class="col-md-4 col-sm-4 form-right ">
+						<input type="email" id="Email" name="Email" placeholder="Email" required="">
+					</div>
+					<div class="col-md-4 col-sm-4 form-right ">
+						<input type="text" id="ContactNo" name="phone" placeholder="Phone" required="">
+					</div>
+					<div class="clearfix"> </div>
+					<textarea name="Message" id="Message" placeholder="Message" required=""></textarea>
+					<input type="button" value="SUBMIT" onclick="SubmitMessage()"><br />
+                    <label id="successmessage" style="display:none;text-align:center;">Message Send Successfully</label>
+				</form>
+			</div>
+		</div>
+	</div>
+<div class="contact-top">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13199.78187200312!2d73.2434517!3d34.1988697!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xe744bea4e9033b92!2sCOMSATS%20University%20Islamabad%20-%20Abbottabad%20Campus!5e0!3m2!1sen!2s!4v1593101564055!5m2!1sen!2s"></iframe>
+	</div>
+
+<script>
+    function SubmitMessage()
+    {
+        if (!validateRegistrationForm()) {
+            $("#divLoading").show();
+            var dataobj = JSON.stringify({
+                ContactNo: $.trim($("#ContactNo").val()),
+                Email: $("#Email").val(),
+                Name: $.trim($("#Name").val()),
+                Message: $("#Message").val(),
+            });
+            $.ajax({
+                url: "/Admin/InsertMessageUser",
+                type: "POST",
+                data: dataobj,
+                dataType: "JSON",
+                traditional: true,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $("#ContactNo").val(''),
+                    $("#Email").val(''),
+                    $.trim($("#Name").val('')),
+                    $("#Message").val(''),
+                    $("#successmessage").show();
+                        setTimeout(function () {
+                            $("#successmessage").hide();
+                        }, 5000);
+                },
+                error: function () {
+                }
+            });
+        }
+        else { return false; }
+    }
+    function validateRegistrationForm() {
+        var isErrorOccurd = false;
+        $("#ContactNo").removeClass("errorClass");
+        if ($.trim($("#ContactNo").val()) == "") {
+            $("#ContactNo").addClass('errorClass');
+            isErrorOccurd = true;
+        }
+        $("#Email").removeClass("errorClass");
+        if ($.trim($("#Email").val()) == "") {
+            $("#Email").addClass('errorClass');
+            isErrorOccurd = true;
+        }
+        $("#Name").removeClass("errorClass");
+        if ($.trim($("#Name").val()) == "") {
+            $("#Name").addClass('errorClass');
+            isErrorOccurd = true;
+        }
+        $("#Message").removeClass("errorClass");
+        if ($.trim($("#Message").val()) == "") {
+            $("#Message").addClass("errorClass");
+            isErrorOccurd = true;
+        }
+        return isErrorOccurd;
+
+
+    }
+</script>

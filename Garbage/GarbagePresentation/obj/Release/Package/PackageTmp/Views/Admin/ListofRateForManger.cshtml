@@ -1,0 +1,183 @@
+﻿@{
+    ViewBag.Title = "Rate List";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+ <div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            <div class="row">
+        <div class="col-lg-12">
+            <div class="btn-group btn-breadcrumb">
+                <a href="~/Admin/Index" class="btn btn-primary" onclick="Loader()"><i class="fa fa-tachometer"></i> Dashboard</a>
+                <a href="#" class="btn btn-primary-child" style="pointer-events:none"><i class="fa fa-list"></i> Rate List</a>
+                <a href="#" class="btn btn-primary" style="display:none"></a>
+            </div>
+        </div>
+    </div>
+        </h1>
+    </div>
+</div>
+<div class="row" style="text-align:left;">
+    <div class="col-lg-12">
+<button class="btnsave" type="button" data-toggle="modal" data-target="#AddModal" id="showModel">Add Rate</button>
+        </div>
+    </div>
+<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+  <thead>
+    <tr style="background:linear-gradient(to right, #7fc645 0%,#048ed2 100%) !important;color:#fff;text-align:center">
+      <th>Title</th>
+      <th>Rate</th>
+      <th>Created On</th>
+        <th style="text-align:center">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+      @foreach (var item in Model) {
+    <tr>  
+      <td>@item.Title</td>
+      <td>@item.Rate</td>
+      <td>@item.CreatedOn</td>
+       <td>
+            <button class="btnedit" type="button" data-toggle="modal" data-target="#UserRegistrationModal1" onclick="edit('@item.RateId','@item.Title','@item.Rate')">Edit</button> 
+        </td>
+    </tr>
+      }
+  </tbody>
+</table>
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="AddModal" role="dialog">
+    <div class="modal-dialog modal-md" style="min-width:270px;margin-top: 80px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 id="New" class="modal-title">New Rate</h4>
+                <h4 id="Edit" style="display:none" class="modal-title">Update Rate</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="RateId" class="form-control" />
+                <div class="row">
+                    <div class="col-lg-4"><label>Title</label></div>
+                    <div class="col-lg-8"><input type="text" id="Title" maxlength="50" class="form-control" /></div>
+                </div>
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-lg-4"><label>Rate</label></div>
+                    <div class="col-lg-8"><input type="number" min="0" id="Rate" class="form-control" /></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                    <button id="Save" class="btnsave" type="button">Save</button>
+                    <button id="Update" style="display:none" class="btnsave" type="button">Update</button>
+                <button type="button" class="btnClose" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#showModel").click(function () {
+        $('#New').show(); $('#Save').show();
+        $('#Edit').hide(); $('#Update').hide();
+        $("#Title").val('');
+        $("#Rate").val('');
+    });
+    $("#Save").click(function () {
+        if (!validateRegistrationForm()) {
+            $("#divLoading").show();
+            var dataobj = JSON.stringify({
+                Title: $.trim($("#Title").val()),
+                Rate: $("#Rate").val(),
+            });
+            $.ajax({
+                url: "/Admin/InsertRateByManger",
+                type: "POST",
+                data: dataobj,
+                dataType: "JSON",
+                traditional: true,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data> 0) {
+                        $('#AddModal').modal('hide');
+                        $("#divLoading").hide();
+                        toastr.success("Rate Inserted Successfully");
+                        setTimeout(function () {
+                            location.reload();
+                        }, 3000);
+                        
+                    }
+                    else {
+                        $("#divLoading").hide();
+                        $("#Title").addClass('errorClass');
+                        toastr.error("Rate with the Title is already Inserted");
+                    }
+                },
+                error: function () {
+                }
+            });
+        }
+        else { return false; }
+    });
+    function edit(RateId, Title, Rate) {
+        $('#New').hide(); $('#Save').hide();
+        $('#Edit').show(); $('#Update').show();
+        $("#RateId").val(RateId);
+        $("#Title").val(Title);
+        $("#Rate").val(Rate);
+        $('#AddModal').modal('show');
+    }
+    $("#Update").click(function () {
+        if (!validateRegistrationForm()) {
+            $("#divLoading").show();
+            var dataobj = JSON.stringify({
+                Title: $.trim($("#Title").val()),
+                Rate: $("#Rate").val(),
+                RateId: $("#RateId").val(),
+            });
+            $.ajax({
+                url: "/Admin/UpdateRateByManger",
+                type: "POST",
+                data: dataobj,
+                dataType: "JSON",
+                traditional: true,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data> 0) {
+                        $('#AddModal').modal('hide');
+                        $("#divLoading").hide();
+                        toastr.success("Rate Updated Successfully");
+                        setTimeout(function () {
+                            location.reload();
+                        }, 3000);
+                        
+                    }
+                    else {
+                        $("#divLoading").hide();
+                        $("#Title").addClass('errorClass');
+                        toastr.error("Rate with the Title is already Inserted");
+                    }
+                },
+                error: function () {
+                }
+            });
+        }
+        else { return false; }
+    });
+    function validateRegistrationForm() {
+        var isErrorOccurd = false;
+        $("#Title").removeClass("errorClass");
+        if ($.trim($("#Title").val()) == "") {
+            $("#Title").addClass('errorClass');
+            isErrorOccurd = true;
+        }
+        $("#Rate").removeClass("errorClass");
+        if ($.trim($("#Rate").val()) == "") {
+            $("#Rate").addClass("errorClass");
+            isErrorOccurd = true;
+        }
+        return isErrorOccurd;
+
+
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
